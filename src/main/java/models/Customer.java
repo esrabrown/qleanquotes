@@ -26,7 +26,7 @@ public class Customer extends AbstractEntity{
     @Email(message = "Invalid email.Please try again!")
     @NotNull
     @NotBlank
-    private String email;
+    private Email email;
 
 
     @NotNull
@@ -49,7 +49,7 @@ public class Customer extends AbstractEntity{
     }
 
 
-    public Customer(String name, String lastName, String email, String password, Address address, String phoneNumber){
+    public Customer(String name, String lastName, Email email, String password, Address address, String phoneNumber){
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -57,17 +57,12 @@ public class Customer extends AbstractEntity{
         this.address = address;
         this.phoneNumber = phoneNumber;
 
-
     }
 
-
-    // NOT SAVING USER PASSWORD TO DATA!!! HASHING PASSWORD FOR SAFETY!
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    public boolean isMatchingPassword(String password){
-        String candidateHash = encoder.encode(password);
-        return candidateHash.equals(pwHash);
+    public Customer(Email email, String password) {
+        super();
     }
+
 
     //only getters for data
     public String getName(){
@@ -78,7 +73,7 @@ public class Customer extends AbstractEntity{
         return lastName;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
@@ -134,5 +129,15 @@ public class Customer extends AbstractEntity{
     }
 
 
+    // NOT SAVING USER PASSWORD TO DATA!!! HASHING PASSWORD FOR SAFETY!
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+
+    public boolean isMatchingPassword(String password){
+        String candidateHash = encoder.encode(password);
+        return candidateHash.equals(pwHash);
+    }
+    
 
 }

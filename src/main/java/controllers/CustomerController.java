@@ -1,7 +1,6 @@
 package controllers;
 
 
-
 import models.Customer;
 import models.data.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,7 @@ public class CustomerController {
 
     @PostMapping("authenticate")
     public boolean customerAuthenticate(@RequestBody Customer customer) {
+
         Optional<Customer> customerData = customerRepository.findById(customer.getId());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -58,11 +58,6 @@ public class CustomerController {
             return false;
         }
     }
-//this part maybe should be in AuthenticationController...
-
-//also, FEELING LIKE I AM MISSING SOME PARTS ABOUT LOGINFORMDTO AND REGISTERDTO...
-
-
 
 
 }

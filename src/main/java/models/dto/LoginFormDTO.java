@@ -11,19 +11,19 @@ public class LoginFormDTO {
     @Email(message = "Invalid email.Please try again!")
     @NotNull
     @NotBlank
-    private String email;
+    private Email email;
 
     @NotNull
     @NotBlank
-    @Size(min = 5, max = 20, message = "Invalid password. Must be between 5 and 20 characters")
+    @Size(min = 5, max = 20, message = "Invalid password.Must be between 5 and 20 characters!")
     private String password;
 
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
