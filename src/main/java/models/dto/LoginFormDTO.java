@@ -11,7 +11,7 @@ public class LoginFormDTO {
     @Email(message = "Invalid email.Please try again!")
     @NotNull
     @NotBlank
-    private Email email;
+    private String email;
 
     @NotNull
     @NotBlank
@@ -19,11 +19,11 @@ public class LoginFormDTO {
     private String password;
 
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Email email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

@@ -16,14 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import java.util.Optional;
+
 
 @Controller
 public class AuthenticationController {
 
 
  @Autowired
-    CustomerRepository customerRepository;
+ CustomerRepository customerRepository;
 
   private static final String customerSessionKey = "customer";
 
@@ -40,7 +42,7 @@ public class AuthenticationController {
       return customer.get();
   }
 
-  public static void setCustomerRepository(HttpSession session, Customer customer) {
+  public static void setCustomerInSession(HttpSession session, Customer customer) {
       session.setAttribute(customerSessionKey, customer.getId());
   }
 
@@ -62,9 +64,11 @@ public class AuthenticationController {
       Customer existingCustomer = customerRepository.findByEmail(registerFormDTO.getEmail());
 
       if(existingCustomer != null){
-    errors.rejectValue("email", "email.alreadyexist", "A user with that email already exists");
-    return "register";
+         errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists");
+         model.addAttribute("title", "Register");
+          return "register";
       }
+
 
       String password = registerFormDTO.getPassword();
       String verifyPassword = registerFormDTO.getVerifyPassword();
@@ -76,7 +80,7 @@ public class AuthenticationController {
 
       Customer newCustomer = new Customer(registerFormDTO.getEmail(), registerFormDTO.getPassword());
       customerRepository.save(newCustomer);
-      getCustomerFromSession(request.getSession());
+      setCustomerInSession(request.getSession(), newCustomer);
       return "redirect:";
   }
 
@@ -99,7 +103,7 @@ public class AuthenticationController {
      Customer theCustomer = customerRepository.findByEmail(loginFormDTO.getEmail());
 
       if(theCustomer == null){
-          errors.rejectValue("email", "user.invalid", "The given email does not exist");
+          errors.rejectValue("email", "customer.invalid", "The given email does not exist");
           model.addAttribute("title", "Log In");
           return "login";
       }
@@ -112,7 +116,8 @@ public class AuthenticationController {
           return "login";
       }
 
-      setCustomerRepository(request.getSession(), theCustomer);
+      setCustomerInSession(request.getSession(), theCustomer);
+
       return  "redirect:";
 
   }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8"/>
+  <head th:fragment="head">
+
+
+    <title th:text="'QleanQuotes' + ${title == null ? '' : ' :: ' + title}">Qlean Quotes</title>
+  </head>
+</head>
+<body>
+
+<div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a th:href="@{/}" class="navbar-brand">Qlean Quotes Logo</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>About</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

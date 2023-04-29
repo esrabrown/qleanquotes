@@ -23,13 +23,13 @@ public class Customer extends AbstractEntity{
     private String lastName;
 
 
-    @Email(message = "Invalid email.Please try again!")
+//    @Email(message = "Invalid email.Please try again!")
     @NotNull
     @NotBlank
-    private Email email;
+    private String email;
 
 
-    @NotNull
+    @NotNull(message = "This field can not be empty.")
     private String pwHash;
 
     @NotNull
@@ -44,12 +44,14 @@ public class Customer extends AbstractEntity{
     @Size(min = 10, max = 10)
     private String phoneNumber;
 
+    // NOT SAVING USER PASSWORD TO DATA!!! HASHING PASSWORD FOR SAFETY!
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Customer(){
     }
 
 
-    public Customer(String name, String lastName, Email email, String password, Address address, String phoneNumber){
+    public Customer(String name, String lastName, String email, String password, Address address, String phoneNumber){
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -59,12 +61,16 @@ public class Customer extends AbstractEntity{
 
     }
 
-    public Customer(Email email, String password) {
+    public Customer(String email, String password) {
         super();
     }
 
+    public boolean isMatchingPassword(String password){
+        String candidateHash = encoder.encode(password);
+        return candidateHash.equals(pwHash);
+    }
 
-    //only getters for data
+    //we only need getters
     public String getName(){
         return name;
     }
@@ -73,7 +79,7 @@ public class Customer extends AbstractEntity{
         return lastName;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -89,6 +95,7 @@ public class Customer extends AbstractEntity{
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
 
 
     //Since address have integar and String info
@@ -129,15 +136,6 @@ public class Customer extends AbstractEntity{
     }
 
 
-    // NOT SAVING USER PASSWORD TO DATA!!! HASHING PASSWORD FOR SAFETY!
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-
-
-    public boolean isMatchingPassword(String password){
-        String candidateHash = encoder.encode(password);
-        return candidateHash.equals(pwHash);
-    }
     
 
 }

@@ -22,6 +22,9 @@ public class Order extends AbstractEntity{
     private int numOfBathroom;
 
 
+    public Order(){
+
+    }
 
     public Order(int squareFeet, int numOfRoom, int numOfBathroom){
         this.squareFeet = squareFeet;

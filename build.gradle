@@ -24,8 +24,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'mysql:mysql-connector-java:8.0.26'
+	implementation 'mysql:mysql-connector-java:8.0.32'
 	implementation  'org.springframework.security:spring-security-crypto'
+    implementation 'com.github.kristofa:brave-spring-web-servlet-interceptor:3.7.0'
+	implementation 'io.zipkin.brave:brave-spring-web-servlet-interceptor:4.13.6'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation("org.jmockit:jmockit:1.49")
